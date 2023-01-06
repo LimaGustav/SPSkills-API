@@ -4,6 +4,7 @@ using API.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace API.Controllers
 {
@@ -35,6 +36,23 @@ namespace API.Controllers
         }
 
         [Authorize]
+        [HttpGet("token")]
+        public IActionResult GetByToken()
+        {
+            try
+            {
+                int idUser = Convert.ToInt32(HttpContext.User.Claims.First(c => c.Type == JwtRegisteredClaimNames.Jti).Value);
+                List<Frequency> frequencies = _frequencyRepository.GetByUserId(idUser);
+                return Ok(frequencies);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+                throw;
+            }
+        }
+
+        [Authorize(Roles = "1")]
         [HttpGet]
         public IActionResult Get()
         {

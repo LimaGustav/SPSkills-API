@@ -6758,11 +6758,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\SPSkills\\SPSkills-Sistema\\BackEnd\\API\\API.csproj",
+      "projectUniqueName": "C:\\SPSkills\\API\\BackEnd\\API\\API.csproj",
       "projectName": "API",
-      "projectPath": "C:\\SPSkills\\SPSkills-Sistema\\BackEnd\\API\\API.csproj",
+      "projectPath": "C:\\SPSkills\\API\\BackEnd\\API\\API.csproj",
       "packagesPath": "C:\\Users\\gugag\\.nuget\\packages\\",
-      "outputPath": "C:\\SPSkills\\SPSkills-Sistema\\BackEnd\\API\\obj\\",
+      "outputPath": "C:\\SPSkills\\API\\BackEnd\\API\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

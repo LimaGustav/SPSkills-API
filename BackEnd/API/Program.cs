@@ -1,6 +1,4 @@
 //using API.Contexts;
-using API.Interfaces;
-using API.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -9,6 +7,7 @@ using Newtonsoft.Json.Linq;
 using static System.Net.Mime.MediaTypeNames;
 using System.Diagnostics.Metrics;
 using System.Reflection.Metadata;
+using Newtonsoft.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -45,7 +44,11 @@ builder.Services.AddSwaggerGen(c =>
                     }
                 });
 });
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddNewtonsoftJson(options =>
+{
+    options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+    options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+});
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("CorsPolicy",

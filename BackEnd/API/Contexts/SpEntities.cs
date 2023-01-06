@@ -31,7 +31,7 @@ namespace API.Contexts
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Data Source=DESKTOP-3O2A4AI\\SQLEXPRESS; initial catalog=SPSkills; Integrated Security=true;");
+                optionsBuilder.UseSqlServer("Data Source=DESKTOP-9T98V6J\\SQLEXPRESS; initial catalog=SPSkills; Integrated Security=true;");
             }
         }
 
@@ -50,6 +50,7 @@ namespace API.Contexts
                 entity.HasOne(d => d.IdUserNavigation)
                     .WithMany(p => p.Competitors)
                     .HasForeignKey(d => d.IdUser)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Competidores_Usuarios");
             });
 
@@ -60,11 +61,13 @@ namespace API.Contexts
                 entity.HasOne(d => d.IdCompetitorNavigation)
                     .WithMany(p => p.Expenses)
                     .HasForeignKey(d => d.IdCompetitor)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Despesas_Competidores");
 
                 entity.HasOne(d => d.IdExpenseTypeNavigation)
                     .WithMany(p => p.Expenses)
                     .HasForeignKey(d => d.IdExpenseType)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Despesas_TiposDespesa");
             });
 
@@ -83,9 +86,14 @@ namespace API.Contexts
 
                 entity.Property(e => e.CheckOut).HasColumnType("datetime");
 
+                entity.Property(e => e.Descricao)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
                 entity.HasOne(d => d.IdCompetitorNavigation)
                     .WithMany(p => p.Frequencies)
                     .HasForeignKey(d => d.IdCompetitor)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Frequencias_Competidores");
             });
 

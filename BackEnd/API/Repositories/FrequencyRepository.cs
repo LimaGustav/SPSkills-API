@@ -18,6 +18,21 @@ namespace API.Repositories
             return ctx.Frequencies.Where(x => x.IdCompetitor == competitorId).Include(x => x.IdCompetitorNavigation).ToList();
         }
 
+        public List<Frequency> GetByUserId(int userId)
+        {
+            try
+            {
+                Competitor comp = ctx.Competitors.Where(x => x.IdUser == userId).First();
+                return ctx.Frequencies.Where(x => x.IdCompetitor == comp.Id).Include(x => x.IdCompetitorNavigation).ToList();
+
+            }
+            catch (Exception ex)
+            {
+                return null;
+                throw;
+            }
+        }
+
         public List<Frequency> GetBySkillId(int skillId)
         {
             throw new NotImplementedException();

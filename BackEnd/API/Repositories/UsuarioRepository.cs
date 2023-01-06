@@ -18,7 +18,7 @@ namespace API.Repositories
 
             if (usuario != null)
             {
-                if (usuario.Password.Length < 32)
+                if (usuario.Password.Length < 59)
                 {
                     usuario.Password = Encript.GenerateHash(usuario.Password);
 

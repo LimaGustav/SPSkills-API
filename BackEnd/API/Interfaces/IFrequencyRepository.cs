@@ -27,6 +27,13 @@ namespace API.Interfaces
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        List<Frequency> GetByUserId(int userId);
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="frequency"></param>
         /// <returns></returns>
         bool RegisterFrequency(Frequency frequency);

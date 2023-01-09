@@ -4,10 +4,10 @@ namespace API.ViewModels
 {
     public class LoginViewModel
     {
-        [Required(ErrorMessage = "Informe o e-mail do usuário")]
+        [Required(ErrorMessage = "Enter a valid email")]
         [EmailAddress]
         public string? Email { get; set; }
-        [Required(ErrorMessage = "Informe a senha do usuário")]
-        public string? Senha { get; set; }
+        [Required(ErrorMessage = "Enter the users password")]
+        public string? Password { get; set; }
     }
 }

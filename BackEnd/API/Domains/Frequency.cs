@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace API.Domains
 {
     public partial class Frequency
     {
+        
         public int Id { get; set; }
         public int IdCompetitor { get; set; }
         public DateTime? CheckIn { get; set; }

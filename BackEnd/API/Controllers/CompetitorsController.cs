@@ -19,6 +19,12 @@ namespace API.Controllers
         {
             _competidorRepository = new CompetorRespository();
         }
+
+        /// <summary>
+        /// Gets a Competitor by its userId
+        /// </summary>
+        /// <param name="userId">Userid of a competitor</param>
+        /// <returns>A competitor</returns>
         [Authorize]
         [HttpGet("{userId}")]
         public IActionResult GetByUserId(int userId)
@@ -36,6 +42,11 @@ namespace API.Controllers
                 throw;
             }
         }
+
+        /// <summary>
+        /// Gets a logged competitor by its JWT Token
+        /// </summary>
+        /// <returns>A competitor</returns>
         [Authorize]
         [HttpGet("token")]
         public IActionResult GetByToken()
@@ -55,6 +66,11 @@ namespace API.Controllers
             }
         }
 
+
+        /// <summary>
+        /// Gets all Competitors
+        /// </summary>
+        /// <returns>List of Competitors</returns>
         [HttpGet]
         public IActionResult Get()
         {

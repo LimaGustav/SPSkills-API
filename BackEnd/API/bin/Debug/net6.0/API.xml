@@ -1,0 +1,152 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>API</name>
+    </assembly>
+    <members>
+        <member name="M:API.Controllers.CompetitorsController.GetByUserId(System.Int32)">
+            <summary>
+            Gets a Competitor by its userId
+            </summary>
+            <param name="userId">Userid of a competitor</param>
+            <returns>A competitor</returns>
+        </member>
+        <member name="M:API.Controllers.CompetitorsController.GetByToken">
+            <summary>
+            Gets a logged competitor by its JWT Token
+            </summary>
+            <returns>A competitor</returns>
+        </member>
+        <member name="M:API.Controllers.CompetitorsController.Get">
+            <summary>
+            Gets all Competitors
+            </summary>
+            <returns>List of Competitors</returns>
+        </member>
+        <member name="M:API.Controllers.FrequenciesController.GetByCompetitorId(System.Int32)">
+            <summary>
+            Gets the frequency of a competitor by its Id
+            </summary>
+            <param name="competitorId"></param>
+            <returns>List of Frequencies</returns>
+        </member>
+        <member name="M:API.Controllers.FrequenciesController.GetByToken">
+            <summary>
+            Gets the frequency of logged competitor by its JWT Token
+            </summary>
+            <returns>List of Frequencies</returns>
+        </member>
+        <member name="M:API.Controllers.FrequenciesController.Get">
+            <summary>
+            Gets the frequencies of all competitors
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:API.Controllers.FrequenciesController.Post(API.Domains.Frequency)">
+            <summary>
+            Register a new frequency
+            </summary>
+            <param name="frequency"></param>
+            <returns>Status Code Created</returns>
+        </member>
+        <member name="M:API.Controllers.FrequenciesController.Put(System.Int32,API.Domains.Frequency)">
+            <summary>
+            Updates 
+            </summary>
+            <param name="id"></param>
+            <param name="newFrequency"></param>
+            <returns></returns>
+        </member>
+        <member name="M:API.Controllers.LoginController.Login(API.ViewModels.LoginViewModel)">
+            <summary>
+            Authenticate a user in the Application
+            </summary>
+            <param name="login"></param>
+            <returns>A JWT Token</returns>
+        </member>
+        <member name="M:API.Controllers.LoginController.LoginMobile(API.ViewModels.LoginViewModel)">
+            <summary>
+            Authenticate a user in the Mobile Application
+            </summary>
+            <param name="login"></param>
+            <returns>A JWT Token</returns>
+        </member>
+        <member name="M:API.Interfaces.ICompetidorRepository.GetById(System.Int32)">
+            <summary>
+            Gets a competitor by its Id
+            </summary>
+            <param name="id"></param>
+            <returns>A User</returns>
+        </member>
+        <member name="M:API.Interfaces.ICompetidorRepository.GetByUserId(System.Int32)">
+            <summary>
+            Gets a competitor by its user id
+            </summary>
+            <param name="userId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:API.Interfaces.ICompetidorRepository.GetAll">
+            <summary>
+            Gets all Competitors
+            </summary>
+            <returns>Competitors List</returns>
+        </member>
+        <member name="M:API.Interfaces.IFrequencyRepository.GetAll">
+            <summary>
+            Get all Frequencies
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:API.Interfaces.IFrequencyRepository.GetBySkillId(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="skillId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:API.Interfaces.IFrequencyRepository.GetByCompetitorId(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="competitorId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:API.Interfaces.IFrequencyRepository.GetByUserId(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="userId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:API.Interfaces.IFrequencyRepository.RegisterFrequency(API.Domains.Frequency)">
+            <summary>
+            
+            </summary>
+            <param name="frequency"></param>
+            <returns></returns>
+        </member>
+        <member name="M:API.Interfaces.IFrequencyRepository.UpdateFrequency(System.Int32,API.Domains.Frequency)">
+            <summary>
+            Updates a existing frequency
+            </summary>
+            <param name="idFrequency">Id of the frequency to be edited</param>
+            <param name="newFrequency">Edited data of the Frequency</param>
+            <returns></returns>
+        </member>
+        <member name="M:API.Interfaces.IUsuarioRepository.SearchById(System.Int32)">
+            <summary>
+            Search for a user by its id
+            </summary>
+            <param name="id">User id</param>
+            <returns>User whose Id is = id</returns>
+        </member>
+        <member name="M:API.Interfaces.IUsuarioRepository.Login(System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="email"></param>
+            <param name="password"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

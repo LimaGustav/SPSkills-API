@@ -37,5 +37,13 @@ namespace API.Interfaces
         /// <param name="frequency"></param>
         /// <returns></returns>
         bool RegisterFrequency(Frequency frequency);
+
+        /// <summary>
+        /// Updates a existing frequency
+        /// </summary>
+        /// <param name="idFrequency">Id of the frequency to be edited</param>
+        /// <param name="newFrequency">Edited data of the Frequency</param>
+        /// <returns></returns>
+        Frequency UpdateFrequency(int idFrequency, Frequency newFrequency);
     }
 }

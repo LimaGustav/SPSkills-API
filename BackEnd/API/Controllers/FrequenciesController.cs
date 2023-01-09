@@ -19,6 +19,12 @@ namespace API.Controllers
         {
             _frequencyRepository = new FrequencyRepository();
         }
+
+        /// <summary>
+        /// Gets the frequency of a competitor by its Id
+        /// </summary>
+        /// <param name="competitorId"></param>
+        /// <returns>List of Frequencies</returns>
         [Authorize]
         [HttpGet("{competitorId}")]
         public IActionResult GetByCompetitorId(int competitorId)
@@ -35,6 +41,10 @@ namespace API.Controllers
             }
         }
 
+        /// <summary>
+        /// Gets the frequency of logged competitor by its JWT Token
+        /// </summary>
+        /// <returns>List of Frequencies</returns>
         [Authorize]
         [HttpGet("token")]
         public IActionResult GetByToken()
@@ -52,6 +62,10 @@ namespace API.Controllers
             }
         }
 
+        /// <summary>
+        /// Gets the frequencies of all competitors
+        /// </summary>
+        /// <returns></returns>
         [Authorize(Roles = "1")]
         [HttpGet]
         public IActionResult Get()
@@ -68,6 +82,11 @@ namespace API.Controllers
             }
         }
 
+        /// <summary>
+        /// Register a new frequency
+        /// </summary>
+        /// <param name="frequency"></param>
+        /// <returns>Status Code Created</returns>
         [Authorize]
         [HttpPost]
         public IActionResult Post(Frequency frequency)
@@ -78,6 +97,28 @@ namespace API.Controllers
                 if (added)
                     return StatusCode(201);
                 return NotFound();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Updates 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="newFrequency"></param>
+        /// <returns></returns>
+        [Authorize]
+        [HttpPut("{id}")]
+        public IActionResult Put(int id, Frequency newFrequency)
+        {
+            try
+            {
+                Frequency updatedFrequency =  _frequencyRepository.UpdateFrequency(id, newFrequency);
+                return Ok(updatedFrequency);
             }
             catch (Exception ex)
             {

@@ -2,6 +2,7 @@
 using API.Interfaces;
 using API.Repositories;
 using API.ViewModels;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -23,26 +24,32 @@ namespace API.Controllers
             _usuarioRepository = new UsuarioRepository(new Contexts.SpEntities());
         }
 
+        /// <summary>
+        /// Authenticate a user in the Application
+        /// </summary>
+        /// <param name="login"></param>
+        /// <returns>A JWT Token</returns>
         [HttpPost]
         public IActionResult Login(LoginViewModel login)
         {
             try
             {
-                User usuarioBuscado = _usuarioRepository.Login(login.Email, login.Senha);
+                User user = _usuarioRepository.Login(login.Email, login.Password);
 
-                if (usuarioBuscado == null)
+                if (user == null)
                 {
-                    return Unauthorized(new { msg = "E-mail ou senha inválidos" });
+                    return Unauthorized(new { msg = "Invalid Email or Password" });
                 }
 
-                var minhasClaims = new[]
+
+                var myClaims = new[]
                 {
-                    new Claim(JwtRegisteredClaimNames.Email, usuarioBuscado.Email),
-                    new Claim(JwtRegisteredClaimNames.Jti, usuarioBuscado.Id.ToString()),
-                    new Claim(ClaimTypes.Role, usuarioBuscado.IdUserType.ToString()),
+                    new Claim(JwtRegisteredClaimNames.Email, user.Email),
+                    new Claim(JwtRegisteredClaimNames.Jti, user.Id.ToString()),
+                    new Claim(ClaimTypes.Role, user.IdUserType.ToString()),
 
                     // armazena na Claim personalizada role o tipo de usuário que está logado
-                    new Claim("role", usuarioBuscado.IdUserType.ToString()),
+                    new Claim("role", user.IdUserType.ToString()),
 
                     // Armazena na Claim o nome do usuário que foi autenticado
                    // new Claim(JwtRegisteredClaimNames.Name, usuarioBuscado.NomeUsuario)
@@ -52,17 +59,77 @@ namespace API.Controllers
 
                 var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-                var meuToken = new JwtSecurityToken(
+                var myToken = new JwtSecurityToken(
                         issuer: "SPSkills.webAPI",
                         audience: "SPSkills.webAPI",
-                        claims: minhasClaims,
+                        claims: myClaims,
                         expires: DateTime.Now.AddMinutes(30),
                         signingCredentials: creds
                     );
 
                 return Ok(new
                 {
-                    token = new JwtSecurityTokenHandler().WriteToken(meuToken)
+                    token = new JwtSecurityTokenHandler().WriteToken(myToken)
+                });
+            }
+
+
+            catch (Exception erro)
+            {
+                return BadRequest(erro);
+            }
+        }
+
+        /// <summary>
+        /// Authenticate a user in the Mobile Application
+        /// </summary>
+        /// <param name="login"></param>
+        /// <returns>A JWT Token</returns>
+        [HttpPost("Mobile")]
+        public IActionResult LoginMobile(LoginViewModel login)
+        {
+            try
+            {
+                User user = _usuarioRepository.Login(login.Email, login.Password);
+
+                if (user == null)
+                {
+                    return Unauthorized(new { msg = "Invalid Email or Password" });
+                }
+
+                if (user.IdUserType != 3)
+                {
+                    return StatusCode(403);
+                }
+
+                var myClaims = new[]
+                {
+                    new Claim(JwtRegisteredClaimNames.Email, user.Email),
+                    new Claim(JwtRegisteredClaimNames.Jti, user.Id.ToString()),
+                    new Claim(ClaimTypes.Role, user.IdUserType.ToString()),
+
+                    // armazena na Claim personalizada role o tipo de usuário que está logado
+                    new Claim("role", user.IdUserType.ToString()),
+
+                    // Armazena na Claim o nome do usuário que foi autenticado
+                   // new Claim(JwtRegisteredClaimNames.Name, usuarioBuscado.NomeUsuario)
+                };
+
+                var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes("XbY9ZHvgpgHJbXYjL6ndSfERgq0Gp0O7d2gzNgUEWqOyEIW5xY"));
+
+                var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+                var myToken = new JwtSecurityToken(
+                        issuer: "SPSkills.webAPI",
+                        audience: "SPSkills.webAPI",
+                        claims: myClaims,
+                        expires: DateTime.Now.AddMinutes(30),
+                        signingCredentials: creds
+                    );
+
+                return Ok(new
+                {
+                    token = new JwtSecurityTokenHandler().WriteToken(myToken)
                 });
             }
 

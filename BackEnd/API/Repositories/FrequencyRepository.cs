@@ -52,5 +52,25 @@ namespace API.Repositories
                 throw;
             }
         }
+
+        public Frequency UpdateFrequency(int idFrequency, Frequency newFrequency)
+        {
+            try
+            {
+                var searchedFrequency = ctx.Frequencies.Find(idFrequency);
+                searchedFrequency.CheckIn = newFrequency.CheckIn;
+                searchedFrequency.CheckOut = newFrequency.CheckOut;
+                searchedFrequency.Descricao = newFrequency.Descricao;
+                ctx.Update(searchedFrequency);
+                ctx.SaveChanges();
+                return searchedFrequency;
+            }
+            catch (Exception)
+            {
+                return null;
+                throw;
+            }
+
+        }
     }
 }

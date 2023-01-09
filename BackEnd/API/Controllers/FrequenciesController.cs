@@ -1,6 +1,7 @@
 ﻿using API.Domains;
 using API.Interfaces;
 using API.Repositories;
+using API.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -119,6 +120,57 @@ namespace API.Controllers
             {
                 Frequency updatedFrequency =  _frequencyRepository.UpdateFrequency(id, newFrequency);
                 return Ok(updatedFrequency);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+                throw;
+            }
+        }
+
+
+        /// <summary>
+        /// Checks in a competitor by its Token
+        /// </summary>
+        /// <param name="check">Data and time of the checkin</param>
+        /// <returns></returns>
+        [Authorize]
+        [HttpPost("checkIn")]
+        public IActionResult CheckIn(CheckViewModel check)
+        {
+            try
+            {
+                int idUser = Convert.ToInt32(HttpContext.User.Claims.First(c => c.Type == JwtRegisteredClaimNames.Jti).Value);
+                bool isChecked = _frequencyRepository.CheckInUser(idUser, check);
+                if (!isChecked)
+                    return NotFound(new {msg = "Frequency already registered" });
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Checks out a competitor by its Token
+        /// </summary>
+        /// <param name="check">Data and time of the checkout</param>
+        /// <returns></returns>
+        [Authorize]
+        [HttpPost("checkOut")]
+        public IActionResult CheckOut(CheckViewModel check)
+        {
+            try
+            {
+                int idUser = Convert.ToInt32(HttpContext.User.Claims.First(c => c.Type == JwtRegisteredClaimNames.Jti).Value);
+                bool isChecked = _frequencyRepository.CheckOutUser(idUser, check);
+                if (!isChecked)
+                    return NotFound(new { msg = "Error while checking out!", solution = "Verify if there is a frequency on this date and if it does not have checkout" }); ;
+
+                return Ok();
             }
             catch (Exception ex)
             {

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "g9+H8BT2TOKPmNHvhwlOf+BQtIrA8Tcvazg7d+poEJvRSJSG6nMWNem49rDYGkPW8sfy41e13JPLDd5wz2rVAA==",
+  "dgSpecHash": "kdeURs1FbrHyWixu2bMMRvMjmidzpuTSqP7B/zJkz9z57/1tthgUcSna7FgFL27K4FKLBu/Wha3QqGkJzcCmZw==",
   "success": true,
-  "projectFilePath": "C:\\SistemaSkills\\SPSkills-API\\BackEnd\\API\\API.csproj",
+  "projectFilePath": "C:\\SistemaSkills\\BackEnd\\BackEnd\\API\\API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\admin\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\admin\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",

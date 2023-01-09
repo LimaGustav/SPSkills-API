@@ -57,6 +57,20 @@
             <param name="newFrequency"></param>
             <returns></returns>
         </member>
+        <member name="M:API.Controllers.FrequenciesController.CheckIn(API.ViewModels.CheckViewModel)">
+            <summary>
+            Checks in a competitor by its Token
+            </summary>
+            <param name="check">Data and time of the checkin</param>
+            <returns></returns>
+        </member>
+        <member name="M:API.Controllers.FrequenciesController.CheckOut(API.ViewModels.CheckViewModel)">
+            <summary>
+            Checks out a competitor by its Token
+            </summary>
+            <param name="check">Data and time of the checkout</param>
+            <returns></returns>
+        </member>
         <member name="M:API.Controllers.LoginController.Login(API.ViewModels.LoginViewModel)">
             <summary>
             Authenticate a user in the Application
@@ -131,6 +145,22 @@
             </summary>
             <param name="idFrequency">Id of the frequency to be edited</param>
             <param name="newFrequency">Edited data of the Frequency</param>
+            <returns></returns>
+        </member>
+        <member name="M:API.Interfaces.IFrequencyRepository.CheckInUser(System.Int32,API.ViewModels.CheckViewModel)">
+            <summary>
+            
+            </summary>
+            <param name="idUser"></param>
+            <param name="check"></param>
+            <returns></returns>
+        </member>
+        <member name="M:API.Interfaces.IFrequencyRepository.CheckOutUser(System.Int32,API.ViewModels.CheckViewModel)">
+            <summary>
+            
+            </summary>
+            <param name="idUser"></param>
+            <param name="check"></param>
             <returns></returns>
         </member>
         <member name="M:API.Interfaces.IUsuarioRepository.SearchById(System.Int32)">

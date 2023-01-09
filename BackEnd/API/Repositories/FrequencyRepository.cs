@@ -1,6 +1,7 @@
 ﻿using API.Contexts;
 using API.Domains;
 using API.Interfaces;
+using API.ViewModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Repositories
@@ -72,5 +73,38 @@ namespace API.Repositories
             }
 
         }
+
+        public bool CheckInUser(int idUser, CheckViewModel check)
+        {
+            Competitor comp = ctx.Competitors.FirstOrDefault(x => x.IdUser == idUser);
+            if (comp == null) return false;
+
+            Frequency existingFrequency = ctx.Frequencies.FirstOrDefault(x => x.CheckIn.Value.Date == check.CheckIn.Value.Date);
+            if (existingFrequency != null) return false;
+
+            Frequency newFrequency = new Frequency();
+            newFrequency.CheckIn = check.CheckIn;
+            newFrequency.IdCompetitor = comp.Id;
+            ctx.Frequencies.Add(newFrequency);
+            ctx.SaveChanges();
+            return true;
+        }
+
+        public bool CheckOutUser(int idUser, CheckViewModel check)
+        {
+            Competitor comp = ctx.Competitors.FirstOrDefault(x => x.IdUser == idUser);
+            if (comp == null) return false;
+
+
+            Frequency existingFrequency = ctx.Frequencies.FirstOrDefault(x => x.IdCompetitor == comp.Id && x.CheckIn.Value.Date == DateTime.Now.Date);
+            if (existingFrequency == null ) return false;
+            if (existingFrequency.CheckOut != null) return false;
+
+            existingFrequency.CheckOut = check.CheckOut;
+            ctx.Update(existingFrequency);
+            ctx.SaveChanges();
+            return true;
+        }
     }
 }
+ 

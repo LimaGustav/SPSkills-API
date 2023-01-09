@@ -1,4 +1,5 @@
 ﻿using API.Domains;
+using API.ViewModels;
 
 namespace API.Interfaces
 {
@@ -45,5 +46,21 @@ namespace API.Interfaces
         /// <param name="newFrequency">Edited data of the Frequency</param>
         /// <returns></returns>
         Frequency UpdateFrequency(int idFrequency, Frequency newFrequency);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="idUser"></param>
+        /// <param name="check"></param>
+        /// <returns></returns>
+        bool CheckInUser(int idUser, CheckViewModel check);
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="idUser"></param>
+        /// <param name="check"></param>
+        /// <returns></returns>
+        bool CheckOutUser(int idUser, CheckViewModel check);
     }
 }
